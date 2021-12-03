@@ -1,0 +1,765 @@
+fileFormatVersion: 2
+guid: 9c3fff518dd2ec94d977095379e33361
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -238528610940064396
+    second: Game UI Blue Button Set Open-01_0
+  - first:
+      213: -8381778776782584627
+    second: Game UI Blue Button Set Open-01_1
+  - first:
+      213: -3609330768375356862
+    second: Game UI Blue Button Set Open-01_2
+  - first:
+      213: -5979753226399455226
+    second: Game UI Blue Button Set Open-01_3
+  - first:
+      213: 4670555053848418944
+    second: Game UI Blue Button Set Open-01_4
+  - first:
+      213: -1239280995709207138
+    second: Game UI Blue Button Set Open-01_5
+  - first:
+      213: 7750186953367455887
+    second: Game UI Blue Button Set Open-01_6
+  - first:
+      213: 2566129023505730452
+    second: Game UI Blue Button Set Open-01_7
+  - first:
+      213: -729608733870919468
+    second: Game UI Blue Button Set Open-01_8
+  - first:
+      213: 7369150731248866654
+    second: Game UI Blue Button Set Open-01_9
+  - first:
+      213: 2441440268052682761
+    second: Game UI Blue Button Set Open-01_10
+  - first:
+      213: -7368609362389070399
+    second: Game UI Blue Button Set Open-01_11
+  - first:
+      213: 3533379596347426646
+    second: Game UI Blue Button Set Open-01_12
+  - first:
+      213: 748445776514323411
+    second: Game UI Blue Button Set Open-01_13
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 2
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_0
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 411
+        width: 137
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 22, y: 22, z: 23, w: 22}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47d662cfd7390bcf0800000000000000
+      internalID: -238528610940064396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 337
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc447ff6c90fdab80800000000000000
+      internalID: -8381778776782584627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_2
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 337
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 242691a0ac419edc0800000000000000
+      internalID: -3609330768375356862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_3
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 337
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 608e6f76f16a30da0800000000000000
+      internalID: -5979753226399455226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_4
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 337
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08a5a88631521d040800000000000000
+      internalID: 4670555053848418944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_5
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 263
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9d3cd910803dcee0800000000000000
+      internalID: -1239280995709207138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_6
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 263
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f88855ac8f13e8b60800000000000000
+      internalID: 7750186953367455887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_7
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 263
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b01ed30c8bc9320800000000000000
+      internalID: 2566129023505730452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_8
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 263
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d0f990e8b8efd5f0800000000000000
+      internalID: -729608733870919468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_9
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 191
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e551660fb8b744660800000000000000
+      internalID: 7369150731248866654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_10
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 191
+        width: 137
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9085d9d0dfcb1e120800000000000000
+      internalID: 2441440268052682761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_11
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 191
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cd8e2253d07db990800000000000000
+      internalID: -7368609362389070399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_12
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 123
+        width: 136
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 657c6e0b506190130800000000000000
+      internalID: 3533379596347426646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game UI Blue Button Set Open-01_13
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 55
+        width: 137
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d317c2e773036a00800000000000000
+      internalID: 748445776514323411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: 72.5, y: -172.5}
+      - {x: 71.5, y: -169.5}
+      - {x: 66.5, y: -163.5}
+      - {x: 61.5, y: -161.5}
+      - {x: 58.5, y: -161.5}
+      - {x: 57.5, y: -160.5}
+      - {x: -56.5, y: -160.5}
+      - {x: -57.5, y: -161.5}
+      - {x: -61.5, y: -162.5}
+      - {x: -66.5, y: -166.5}
+      - {x: -67.5, y: -169.5}
+      - {x: -67.5, y: -172.5}
+      - {x: -68.5, y: -173.5}
+      - {x: -68.5, y: -211.5}
+      - {x: -67.5, y: -212.5}
+      - {x: -67.5, y: -215.5}
+      - {x: -64.5, y: -222.5}
+      - {x: -60.5, y: -226.5}
+      - {x: -57.5, y: -227.5}
+      - {x: 62.5, y: -227.5}
+      - {x: 67.5, y: -225.5}
+      - {x: 69.5, y: -223.5}
+      - {x: 72.5, y: -216.5}
+    - - {x: 71.5, y: -103.5}
+      - {x: 69.5, y: -98.5}
+      - {x: 65.5, y: -95.5}
+      - {x: 61.5, y: -94.5}
+      - {x: 58.5, y: -92.5}
+      - {x: -58.5, y: -92.5}
+      - {x: -63.5, y: -94.5}
+      - {x: -67.5, y: -98.5}
+      - {x: -68.5, y: -101.5}
+      - {x: -68.5, y: -146.5}
+      - {x: -66.5, y: -151.5}
+      - {x: -62.5, y: -156.5}
+      - {x: -61.5, y: -156.5}
+      - {x: -57.5, y: -159.5}
+      - {x: 61.5, y: -159.5}
+      - {x: 66.5, y: -157.5}
+      - {x: 69.5, y: -154.5}
+      - {x: 71.5, y: -149.5}
+    - - {x: -77.5, y: -35.5}
+      - {x: -79.5, y: -30.5}
+      - {x: -82.5, y: -28.5}
+      - {x: -83.5, y: -28.5}
+      - {x: -85.5, y: -26.5}
+      - {x: -87.5, y: -26.5}
+      - {x: -91.5, y: -24.5}
+      - {x: -133.5, y: -24.5}
+      - {x: -136.5, y: -25.5}
+      - {x: -141.5, y: -28.5}
+      - {x: -144.5, y: -35.5}
+      - {x: -144.5, y: -77.5}
+      - {x: -142.5, y: -80.5}
+      - {x: -141.5, y: -84.5}
+      - {x: -136.5, y: -90.5}
+      - {x: -133.5, y: -91.5}
+      - {x: -87.5, y: -91.5}
+      - {x: -82.5, y: -89.5}
+      - {x: -79.5, y: -86.5}
+      - {x: -77.5, y: -81.5}
+    - - {x: 71.5, y: -79.5}
+      - {x: 71.5, y: -36.5}
+      - {x: 70.5, y: -33.5}
+      - {x: 67.5, y: -28.5}
+      - {x: 58.5, y: -24.5}
+      - {x: -59.5, y: -24.5}
+      - {x: -64.5, y: -26.5}
+      - {x: -67.5, y: -30.5}
+      - {x: -68.5, y: -34.5}
+      - {x: -69.5, y: -35.5}
+      - {x: -69.5, y: -76.5}
+      - {x: -68.5, y: -77.5}
+      - {x: -67.5, y: -82.5}
+      - {x: -62.5, y: -89.5}
+      - {x: -57.5, y: -91.5}
+      - {x: 60.5, y: -91.5}
+      - {x: 65.5, y: -89.5}
+      - {x: 69.5, y: -84.5}
+      - {x: 70.5, y: -80.5}
+    - - {x: 147.5, y: -81.5}
+      - {x: 147.5, y: -35.5}
+      - {x: 145.5, y: -30.5}
+      - {x: 142.5, y: -28.5}
+      - {x: 141.5, y: -28.5}
+      - {x: 139.5, y: -26.5}
+      - {x: 137.5, y: -26.5}
+      - {x: 133.5, y: -24.5}
+      - {x: 91.5, y: -24.5}
+      - {x: 88.5, y: -25.5}
+      - {x: 82.5, y: -29.5}
+      - {x: 80.5, y: -34.5}
+      - {x: 80.5, y: -77.5}
+      - {x: 82.5, y: -80.5}
+      - {x: 83.5, y: -84.5}
+      - {x: 88.5, y: -90.5}
+      - {x: 91.5, y: -91.5}
+      - {x: 137.5, y: -91.5}
+      - {x: 142.5, y: -89.5}
+      - {x: 144.5, y: -86.5}
+      - {x: 144.5, y: -85.5}
+    - - {x: -77.5, y: -9.5}
+      - {x: -77.5, y: 36.5}
+      - {x: -78.5, y: 37.5}
+      - {x: -78.5, y: 39.5}
+      - {x: -82.5, y: 44.5}
+      - {x: -87.5, y: 46.5}
+      - {x: -90.5, y: 47.5}
+      - {x: -134.5, y: 47.5}
+      - {x: -139.5, y: 45.5}
+      - {x: -142.5, y: 42.5}
+      - {x: -144.5, y: 37.5}
+      - {x: -144.5, y: -4.5}
+      - {x: -143.5, y: -5.5}
+      - {x: -143.5, y: -7.5}
+      - {x: -142.5, y: -8.5}
+      - {x: -141.5, y: -12.5}
+      - {x: -137.5, y: -17.5}
+      - {x: -132.5, y: -19.5}
+      - {x: -88.5, y: -19.5}
+      - {x: -87.5, y: -18.5}
+      - {x: -85.5, y: -18.5}
+      - {x: -78.5, y: -12.5}
+    - - {x: -2.5, y: 37.5}
+      - {x: -3.5, y: 40.5}
+      - {x: -7.5, y: 44.5}
+      - {x: -12.5, y: 46.5}
+      - {x: -15.5, y: 47.5}
+      - {x: -59.5, y: 47.5}
+      - {x: -64.5, y: 45.5}
+      - {x: -67.5, y: 41.5}
+      - {x: -68.5, y: 37.5}
+      - {x: -69.5, y: 36.5}
+      - {x: -69.5, y: -4.5}
+      - {x: -68.5, y: -5.5}
+      - {x: -67.5, y: -10.5}
+      - {x: -62.5, y: -17.5}
+      - {x: -57.5, y: -19.5}
+      - {x: -12.5, y: -19.5}
+      - {x: -7.5, y: -17.5}
+      - {x: -4.5, y: -14.5}
+      - {x: -2.5, y: -9.5}
+    - - {x: 72.5, y: -9.5}
+      - {x: 72.5, y: 36.5}
+      - {x: 71.5, y: 37.5}
+      - {x: 71.5, y: 39.5}
+      - {x: 67.5, y: 44.5}
+      - {x: 62.5, y: 46.5}
+      - {x: 59.5, y: 47.5}
+      - {x: 15.5, y: 47.5}
+      - {x: 10.5, y: 45.5}
+      - {x: 7.5, y: 42.5}
+      - {x: 5.5, y: 37.5}
+      - {x: 5.5, y: -4.5}
+      - {x: 6.5, y: -5.5}
+      - {x: 6.5, y: -7.5}
+      - {x: 7.5, y: -8.5}
+      - {x: 8.5, y: -12.5}
+      - {x: 12.5, y: -17.5}
+      - {x: 17.5, y: -19.5}
+      - {x: 61.5, y: -19.5}
+      - {x: 62.5, y: -18.5}
+      - {x: 64.5, y: -18.5}
+      - {x: 71.5, y: -12.5}
+    - - {x: 146.5, y: -9.5}
+      - {x: 147.5, y: -8.5}
+      - {x: 147.5, y: 36.5}
+      - {x: 145.5, y: 41.5}
+      - {x: 142.5, y: 44.5}
+      - {x: 137.5, y: 46.5}
+      - {x: 134.5, y: 47.5}
+      - {x: 90.5, y: 47.5}
+      - {x: 85.5, y: 45.5}
+      - {x: 82.5, y: 42.5}
+      - {x: 80.5, y: 37.5}
+      - {x: 80.5, y: -5.5}
+      - {x: 82.5, y: -8.5}
+      - {x: 83.5, y: -12.5}
+      - {x: 87.5, y: -17.5}
+      - {x: 92.5, y: -19.5}
+      - {x: 136.5, y: -19.5}
+      - {x: 137.5, y: -18.5}
+      - {x: 139.5, y: -18.5}
+      - {x: 146.5, y: -11.5}
+    - - {x: -77.5, y: 65.5}
+      - {x: -77.5, y: 111.5}
+      - {x: -78.5, y: 114.5}
+      - {x: -84.5, y: 119.5}
+      - {x: -86.5, y: 119.5}
+      - {x: -89.5, y: 121.5}
+      - {x: -134.5, y: 121.5}
+      - {x: -139.5, y: 119.5}
+      - {x: -142.5, y: 116.5}
+      - {x: -144.5, y: 111.5}
+      - {x: -144.5, y: 69.5}
+      - {x: -143.5, y: 68.5}
+      - {x: -142.5, y: 63.5}
+      - {x: -137.5, y: 56.5}
+      - {x: -132.5, y: 55.5}
+      - {x: -131.5, y: 54.5}
+      - {x: -88.5, y: 54.5}
+      - {x: -85.5, y: 55.5}
+      - {x: -78.5, y: 62.5}
+      - {x: -78.5, y: 64.5}
+    - - {x: -2.5, y: 111.5}
+      - {x: -3.5, y: 114.5}
+      - {x: -9.5, y: 119.5}
+      - {x: -11.5, y: 119.5}
+      - {x: -14.5, y: 121.5}
+      - {x: -59.5, y: 121.5}
+      - {x: -60.5, y: 120.5}
+      - {x: -62.5, y: 120.5}
+      - {x: -67.5, y: 116.5}
+      - {x: -69.5, y: 111.5}
+      - {x: -69.5, y: 69.5}
+      - {x: -68.5, y: 68.5}
+      - {x: -67.5, y: 63.5}
+      - {x: -62.5, y: 56.5}
+      - {x: -57.5, y: 55.5}
+      - {x: -56.5, y: 54.5}
+      - {x: -13.5, y: 54.5}
+      - {x: -8.5, y: 56.5}
+      - {x: -3.5, y: 62.5}
+      - {x: -2.5, y: 65.5}
+    - - {x: 72.5, y: 65.5}
+      - {x: 72.5, y: 111.5}
+      - {x: 71.5, y: 114.5}
+      - {x: 65.5, y: 119.5}
+      - {x: 63.5, y: 119.5}
+      - {x: 60.5, y: 121.5}
+      - {x: 15.5, y: 121.5}
+      - {x: 10.5, y: 119.5}
+      - {x: 7.5, y: 116.5}
+      - {x: 5.5, y: 111.5}
+      - {x: 5.5, y: 69.5}
+      - {x: 6.5, y: 68.5}
+      - {x: 7.5, y: 63.5}
+      - {x: 12.5, y: 56.5}
+      - {x: 17.5, y: 55.5}
+      - {x: 18.5, y: 54.5}
+      - {x: 61.5, y: 54.5}
+      - {x: 64.5, y: 55.5}
+      - {x: 71.5, y: 62.5}
+      - {x: 71.5, y: 64.5}
+    - - {x: 145.5, y: 115.5}
+      - {x: 139.5, y: 119.5}
+      - {x: 137.5, y: 119.5}
+      - {x: 133.5, y: 121.5}
+      - {x: 91.5, y: 121.5}
+      - {x: 90.5, y: 120.5}
+      - {x: 86.5, y: 119.5}
+      - {x: 82.5, y: 116.5}
+      - {x: 80.5, y: 111.5}
+      - {x: 80.5, y: 68.5}
+      - {x: 82.5, y: 65.5}
+      - {x: 83.5, y: 61.5}
+      - {x: 88.5, y: 55.5}
+      - {x: 91.5, y: 54.5}
+      - {x: 137.5, y: 54.5}
+      - {x: 144.5, y: 58.5}
+      - {x: 147.5, y: 65.5}
+      - {x: 147.5, y: 110.5}
+    - - {x: 74.5, y: 183.5}
+      - {x: 73.5, y: 186.5}
+      - {x: 68.5, y: 192.5}
+      - {x: 63.5, y: 194.5}
+      - {x: 60.5, y: 194.5}
+      - {x: 59.5, y: 195.5}
+      - {x: -54.5, y: 195.5}
+      - {x: -55.5, y: 194.5}
+      - {x: -59.5, y: 193.5}
+      - {x: -64.5, y: 189.5}
+      - {x: -65.5, y: 186.5}
+      - {x: -65.5, y: 183.5}
+      - {x: -66.5, y: 182.5}
+      - {x: -66.5, y: 144.5}
+      - {x: -65.5, y: 143.5}
+      - {x: -65.5, y: 140.5}
+      - {x: -62.5, y: 133.5}
+      - {x: -58.5, y: 129.5}
+      - {x: -55.5, y: 128.5}
+      - {x: 64.5, y: 128.5}
+      - {x: 69.5, y: 130.5}
+      - {x: 71.5, y: 132.5}
+      - {x: 74.5, y: 139.5}
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
