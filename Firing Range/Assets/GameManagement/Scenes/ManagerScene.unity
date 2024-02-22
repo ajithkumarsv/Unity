@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4670868bbb6d0c498950044d1b63abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveManager: {fileID: 0}
 --- !u!4 &1089914984
 Transform:
   m_ObjectHideFlags: 0
@@ -419,6 +420,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0006d256704d94ebe578f6b206d0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pools:
+  - tag: button
+    prefab: {fileID: 6359457068963047692, guid: cdca59ef9e8355e4d9667ddeb2da0cdf,
+      type: 3}
+    size: 50
 --- !u!4 &1901536363
 Transform:
   m_ObjectHideFlags: 0

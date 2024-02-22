@@ -25,7 +25,7 @@ public class GameHandler : Handler
     public void ActivatePausehandler()
     {
         uiController.ActivatePauseHandler();
-        MainDirector.Instance.PauseGame();
+        GameManager.Instance.PauseGame();
 
     }
 

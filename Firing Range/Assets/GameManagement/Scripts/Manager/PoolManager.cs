@@ -37,6 +37,15 @@ public class PoolManager : Singleton<PoolManager>
         }
     }
 
+    public void ReturnObject(string tag ,GameObject gameObject)
+    {
+        if (poolDictionary.ContainsKey(tag))
+        {
+            poolDictionary[tag].Enqueue(gameObject);
+            gameObject.SetActive(false);
+        }
+    }
+
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(tag))
@@ -45,13 +54,28 @@ public class PoolManager : Singleton<PoolManager>
             return null;
         }
 
+        if(poolDictionary[tag].Count == 0)
+        {
+            foreach (Pool pool in pools)
+            {
+                
+                if(pool.tag == tag)
+                {
+                    GameObject obj = Instantiate(pool.prefab);
+                    obj.SetActive(false);
+                    poolDictionary[tag].Enqueue(obj);
+                }
+                    
+            }
+
+        }
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
-        poolDictionary[tag].Enqueue(objectToSpawn);
+        //poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
     }

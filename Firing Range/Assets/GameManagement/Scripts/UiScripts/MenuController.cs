@@ -39,7 +39,7 @@ public class MenuController : Singleton<MenuController>
     public void PlayGame()
     {
 
-        MainDirector.Instance.PlayGame();
+        GameManager.Instance.PlayGame();
         
     }
 
