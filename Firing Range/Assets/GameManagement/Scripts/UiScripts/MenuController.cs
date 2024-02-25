@@ -10,11 +10,17 @@ public class MenuController : Singleton<MenuController>
 
     [SerializeField] MenuHandler menuhandler;
     [SerializeField] OptionsHandler optionsHandler;
+    [SerializeField] CreditHandler creditHandler;
 
-    public void OnLoaded()
+
+    private void Awake()
     {
         menuhandler.DeInit();
         optionsHandler.DeInit();
+        creditHandler.DeInit();
+    }
+    public void OnLoaded()
+    {
         ActivateMenuHandler();
     }
 
@@ -36,6 +42,10 @@ public class MenuController : Singleton<MenuController>
         ActivateHandler(optionsHandler);
     }
 
+    public void ActivateCredithandler()
+    {
+        ActivateHandler(creditHandler);
+    }
     public void PlayGame()
     {
 

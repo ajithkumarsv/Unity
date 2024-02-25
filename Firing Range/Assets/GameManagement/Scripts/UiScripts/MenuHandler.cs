@@ -27,6 +27,10 @@ public class MenuHandler : Handler
     {
         menuController.ActivateOptionsHandler();
     }
+    public void ActivateCreditHandler() { 
+    
+    menuController.ActivateCredithandler();
+    }
 
     public void PlayGame()
     {

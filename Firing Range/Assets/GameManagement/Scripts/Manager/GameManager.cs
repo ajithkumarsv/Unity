@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-   
+    private static bool isPaused;
+    public static bool IsPaused
+    {
+        get
+        {
+            return isPaused;
+        }
+        set
+        {
+            isPaused = value;
+        }
+
+    }
+
     public SaveManager saveManager;
 
     private GameData gameData;
@@ -36,7 +49,8 @@ public class GameManager : Singleton<GameManager>
     #region gameFlow
     public void PlayGame()
     {
-
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         loadingManager.LoadGamePlay(OnGameSceneLoaded);
     }
 
@@ -47,16 +61,25 @@ public class GameManager : Singleton<GameManager>
 
     public void PauseGame()
     {
+        IsPaused = true;
+        InputManager.IsInputEnabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
     }
     public void ResumeGame()
     {
-
+        isPaused = false;
+        InputManager.IsInputEnabled = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 1;
     }
     public void GameOver()
-    { 
-    
+    {
+        InputManager.IsInputEnabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void OnPreLoaded()
@@ -67,8 +90,12 @@ public class GameManager : Singleton<GameManager>
 
     public void OnGameSceneLoaded()
     {
+        Time.timeScale = 1;
+        IsPaused =false;
         Debug.Log("Gamescenes Loaded");
+        InputManager.IsInputEnabled = true;
         GameUIController.Instance.OnLoaded();
+
     }
 
     public void OnMenuSceneLoaded()

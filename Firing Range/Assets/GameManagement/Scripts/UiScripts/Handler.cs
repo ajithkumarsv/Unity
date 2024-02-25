@@ -6,6 +6,11 @@ public class Handler :MonoBehaviour
 {
     [SerializeField] protected CanvasGroup group;
     [SerializeField] protected float animatingtime=3;
+
+    private void Awake()
+    {
+        group = GetComponent<CanvasGroup>();
+    }
     public virtual void Init() {
         gameObject.SetActive(true);
         Debug.Log("Activated");

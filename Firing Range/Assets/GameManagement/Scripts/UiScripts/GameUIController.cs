@@ -28,16 +28,35 @@ public class GameUIController : Singleton<GameUIController>
         currentActiveHandler = handler;
     }
 
+    public void CrossHair(bool enable)
+    {
+        gameHandler.CrossHair(enable);
+    }
+
     public void ActivatePauseHandler()
     {
         ActivateHandler(pausehandler);
+       
     }
 
     public void ActivateGameHandler()
     {
         ActivateHandler(gameHandler);
     }
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.P)) {
+            if(!GameManager.IsPaused)
+            {
+                gameHandler.ActivatePausehandler();
+            }
+            else
+            {
+                pausehandler.OnResume();
+            }
+           
+        }
+    }
 
-    
 
 }

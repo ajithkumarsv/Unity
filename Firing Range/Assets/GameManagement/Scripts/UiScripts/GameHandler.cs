@@ -6,6 +6,9 @@ public class GameHandler : Handler
 {
     GameUIController uiController { get { return GameUIController.Instance; } }
 
+    public GameObject sniperscope;
+    
+
     private void Start()
     {
 
@@ -21,7 +24,15 @@ public class GameHandler : Handler
         base.DeInit();
     }
 
+    public void CrossHair(bool enable)
+    {
+        sniperscope.SetActive(enable);
+    }
 
+    public void EnableSniperScope(bool val)
+    {
+        sniperscope.SetActive(val);
+    }
     public void ActivatePausehandler()
     {
         uiController.ActivatePauseHandler();
