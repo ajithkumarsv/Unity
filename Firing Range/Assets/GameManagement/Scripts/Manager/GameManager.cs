@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    public SaveManager saveManager;
+   
 
     private GameData gameData;
 
@@ -26,8 +26,8 @@ public class GameManager : Singleton<GameManager>
     public void SaveData()
     {
         gameData = new GameData();
-        gameData.playerScore = 100;
-        gameData.isGameCompleted = false;
+        //gameData.playerScore = 100;
+        //gameData.isGameCompleted = false;
         gameData.playerName = "Player";
 
         // Save game data
@@ -37,20 +37,66 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadData()
     {
+        if (saveManager)
+        {
+
+        }
+        else
+        {
+            Debug.Log("savemanager is null");
+        }
         GameData loadedData = saveManager.Load();
         if (loadedData != null)
         {
             gameData =loadedData;
-            Debug.Log("Loaded player score: " + loadedData.playerScore);
-            Debug.Log("Loaded game completed status: " + loadedData.isGameCompleted);
+            //Debug.Log("Loaded player score: " + loadedData.playerScore);
+            //Debug.Log("Loaded game completed status: " + loadedData.isGameCompleted);
             Debug.Log("Loaded player name: " + loadedData.playerName);
         }
+        SettingsManager.Instance.Load();
     }
     #region gameFlow
+
+
+    GameplaySource gameplaySource;
+
+
+    public void StartGame()
+    {
+
+        Time.timeScale = 1;
+        IsPaused = false;
+        Debug.Log("Gamescenes Loaded");
+        InputManager.IsInputEnabled = true;
+        GameUIController.Instance.OnLoaded();
+        WeatherManager.Instance.ChangeSkyToDefault();
+        gameplaySource = new TimedGamelaySource();
+        gameplaySource.Begin();
+    }
+    public void OnGameOver()
+    {
+        InputManager.IsInputEnabled = false;
+    }
+
+    public void LockUnlockCursor(bool islock)
+    {
+
+        if (islock)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+    }
+
     public void PlayGame()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        LockUnlockCursor(true);
         loadingManager.LoadGamePlay(OnGameSceneLoaded);
     }
 
@@ -63,39 +109,31 @@ public class GameManager : Singleton<GameManager>
     {
         IsPaused = true;
         InputManager.IsInputEnabled = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        LockUnlockCursor(false);
         Time.timeScale = 0;
     }
     public void ResumeGame()
     {
         isPaused = false;
         InputManager.IsInputEnabled = true;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        LockUnlockCursor(true);
         Time.timeScale = 1;
     }
     public void GameOver()
     {
         InputManager.IsInputEnabled = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+       LockUnlockCursor(false);
     }
 
     public void OnPreLoaded()
     {
         menuController.OnLoaded();
-
+        LoadData();
     }
 
     public void OnGameSceneLoaded()
     {
-        Time.timeScale = 1;
-        IsPaused =false;
-        Debug.Log("Gamescenes Loaded");
-        InputManager.IsInputEnabled = true;
-        GameUIController.Instance.OnLoaded();
-
+        StartGame();
     }
 
     public void OnMenuSceneLoaded()
@@ -103,7 +141,16 @@ public class GameManager : Singleton<GameManager>
         MenuController.Instance.OnLoaded();
         Debug.Log("MenuScenes Loaded");
     }
+
+    private void Update()
+    {
+
+        if (gameplaySource != null) { gameplaySource.Tick(); }
+
+    }
+  
     #endregion
     LoadingManager loadingManager { get { return LoadingManager.Instance; } }
     MenuController menuController { get { return MenuController.Instance; } }
+    SaveManager saveManager { get { return SaveManager.Instance; } }
 }

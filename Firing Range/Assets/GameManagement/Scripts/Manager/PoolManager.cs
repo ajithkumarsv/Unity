@@ -29,12 +29,23 @@ public class PoolManager : Singleton<PoolManager>
             for (int i = 0; i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
+                obj.transform.parent = transform;
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
 
             poolDictionary.Add(pool.tag, objectPool);
         }
+    }
+
+    public void ReturnObjectTime(string tag, GameObject obj,float time)
+    {
+        StartCoroutine(ReturnObjectTimeCoroutine(tag,obj,time));
+    }
+    IEnumerator ReturnObjectTimeCoroutine(string tag, GameObject obj, float time)
+    {
+        yield return new WaitForSeconds(time);
+        ReturnObject(tag, obj);
     }
 
     public void ReturnObject(string tag ,GameObject gameObject)
@@ -62,6 +73,7 @@ public class PoolManager : Singleton<PoolManager>
                 if(pool.tag == tag)
                 {
                     GameObject obj = Instantiate(pool.prefab);
+                    obj.transform.parent = transform;
                     obj.SetActive(false);
                     poolDictionary[tag].Enqueue(obj);
                 }

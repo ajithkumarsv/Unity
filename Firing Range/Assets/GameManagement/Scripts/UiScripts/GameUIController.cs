@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class GameUIController : Singleton<GameUIController>
 
     [SerializeField] PauseHandler pausehandler;
     [SerializeField] GameHandler gameHandler;
+    [SerializeField] OptionsHandler optionsHandler;
 
     public void OnLoaded()
     {
@@ -19,6 +21,7 @@ public class GameUIController : Singleton<GameUIController>
     {
         pausehandler.DeInit();
         gameHandler.DeInit();
+        optionsHandler.DeInit();
     }
 
     public void ActivateHandler(Handler handler)
@@ -36,27 +39,39 @@ public class GameUIController : Singleton<GameUIController>
     public void ActivatePauseHandler()
     {
         ActivateHandler(pausehandler);
-       
     }
+
+    public void ActivateOptionsHandler()
+    {
+        ActivateHandler(optionsHandler);
+    }
+
+
+    public void PauseGame()
+    {
+        GameManager.Instance.PauseGame();
+        ActivatePauseHandler();
+    }
+
+    public void Resume()
+    {
+       GameManager.Instance.ResumeGame();
+        pausehandler.OnResume();
+    }
+
+    public void OnMenu()
+    {
+        GameManager.Instance.LoadMenu();
+    }
+
 
     public void ActivateGameHandler()
     {
         ActivateHandler(gameHandler);
     }
-    private void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.P)) {
-            if(!GameManager.IsPaused)
-            {
-                gameHandler.ActivatePausehandler();
-            }
-            else
-            {
-                pausehandler.OnResume();
-            }
-           
-        }
-    }
+    
+
+    
 
 
 }

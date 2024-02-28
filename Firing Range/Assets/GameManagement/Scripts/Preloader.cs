@@ -32,9 +32,10 @@ public class Preloader : MonoBehaviour
     
     public void OnCompleted()
     {
-        Destroy(gameObject);
+        
         GameManager.Instance.OnPreLoaded();
-       
+        Destroy(gameObject);
+
     }
 
 

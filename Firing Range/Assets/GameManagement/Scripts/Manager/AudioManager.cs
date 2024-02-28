@@ -8,12 +8,35 @@ public class AudioManager : Singleton<AudioManager>
 
     private AudioSource[] audioSources;
 
+    public AudioClip[] fireClips;
+    public AudioClip reload;
+    public AudioClip bolt;
+    public AudioClip[] take;
+
     private void Awake()
     {
         
         audioSources = GetComponentsInChildren<AudioSource>();
     }
 
+
+    public void PlayFire()
+    {
+        PlaySound(fireClips[Random.Range(0,fireClips.Length)]);
+    }
+    public void PlayReload()
+    {
+        Debug.Log("Reload Event called");
+        PlaySound(reload);
+    }
+    public void PlayBolt()
+    {
+        PlaySound(bolt);
+    }
+    public void PlayTake()
+    {
+        PlaySound(take[Random.Range(0, take.Length)]);
+    }
     public void PlaySound(AudioClip clip, float volume = 1.0f)
     {
         // Find an available audio source

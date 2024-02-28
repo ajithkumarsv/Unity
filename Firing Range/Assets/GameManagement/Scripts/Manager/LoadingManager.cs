@@ -14,7 +14,7 @@ public class LoadingManager : Singleton<LoadingManager>
 
     public void LoadGamePlay(Action callback)
     {
-        string[] loadingscenes = { "GameScene", "GameUI" };
+        string[] loadingscenes = {  "GameUI" , "GameScene" };
         string[] removingscenes = {"MenuUI" };
         LoadScenes(loadingscenes, removingscenes, callback);
 
@@ -65,7 +65,6 @@ public class LoadingManager : Singleton<LoadingManager>
         onCompleted?.Invoke();
     }
 
-  
     public void RemoveScene(string scene,Action onCompleted)
     {
         StartCoroutine(RemoveSceneCoroutine(scene, onCompleted));

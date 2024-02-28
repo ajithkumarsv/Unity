@@ -24,12 +24,12 @@ public class PauseHandler : Handler
     public void OnResume()
     {
         uiController.ActivateGameHandler();
-        GameManager.Instance.ResumeGame();
+        //GameManager.Instance.ResumeGame();
     }
 
     public void OnMenu()
     {
-        GameManager.Instance.LoadMenu();
+        uiController.OnMenu();
     }
 
    
