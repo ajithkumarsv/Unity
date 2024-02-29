@@ -32,7 +32,12 @@ public class PauseHandler : Handler
         uiController.OnMenu();
     }
 
-   
+    public void Retry()
+    {
+        uiController.OnRetry();
+    }
 
-    
+
+
+
 }

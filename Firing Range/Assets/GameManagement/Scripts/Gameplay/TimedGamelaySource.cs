@@ -1,40 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class TimedGamelaySource : GameplaySource
 {
-    [SerializeField] float TotalTime = 120;
+     float TotalTime = 120;
      float currentTime = 120;
-    bool isGameOver=false;
-    public override void Begin()
+    
+    
+    public override void Begin(GameStartOptions gameStartParameters)
     {
-        base.Begin();
+        base.Begin(gameStartParameters);
 
         isGameOver =false;
 
-        currentTime =TotalTime;
+
+        TotalTime = gameStartParameters.totalTime;
+        currentTime = gameStartParameters.totalTime;
     }
 
-    public override void Tick()
+    public override void Tick(float delta)
     {
-        if(isGameOver) return;
-        base.Tick();
 
-        currentTime-=Time.deltaTime;
+        if(isGameOver) return;
+
+        base.Tick(delta);
+
+        currentTime-= delta;
+
         Debug.Log("Time is " + currentTime);
+
         if(currentTime <= 0)
         {
-            End();
+           OnTimeOver();
         }
+
     }
 
-    public override void End()
+    public void OnTimeOver()
     {
-        base.End();
-        isGameOver = true;
-        gamePlayManager.OnGameOver();
+        GameOverOption gameOverOption = new GameOverOption();
+        gameOverOption.score =score;
+        gameOverOption.GameOverCause = "Time Finished";
+        gameOverOption.TimeTaken = TotalTime - currentTime;
+
+        End(gameOverOption);
     }
+
+    public override void End(GameOverOption gameOverParameter)
+    {
+
+        base.End(gameOverParameter);
+
+        isGameOver = true;
+
+        gamePlayManager.OnGameOver(gameOverParameter);
+
+    }
+
+    
 
     GameManager gamePlayManager { get { return GameManager.Instance; } }
+
 }

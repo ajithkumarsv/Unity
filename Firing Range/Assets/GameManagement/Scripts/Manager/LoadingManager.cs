@@ -19,6 +19,37 @@ public class LoadingManager : Singleton<LoadingManager>
         LoadScenes(loadingscenes, removingscenes, callback);
 
     }
+    public void RetryGame(Action callback)
+    {
+        string[] reloadingscenes = { "GameScene" };
+        ReloadScenes(reloadingscenes, callback);
+    }
+    public void ReloadScenes(string[] scenes, Action onCompleted)
+    {
+        StartCoroutine(ReloadSceneCoroutine(scenes, onCompleted));
+    }
+    public IEnumerator ReloadSceneCoroutine(string[] scenes, Action onCompleted)
+    {
+        GameObject go = Instantiate(LoadingScreen);
+        foreach (string removingscene in scenes)
+        {
+            AsyncOperation async = SceneManager.UnloadSceneAsync(removingscene);
+            yield return new WaitUntil(() => async.isDone);
+            async = Resources.UnloadUnusedAssets();
+            yield return new WaitUntil(() => async.isDone);
+            //LoadedScenes.Add(scene);
+        }
+        foreach (string scene in scenes)
+        {
+            AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+            yield return new WaitUntil(() => async.isDone);
+            LoadedScenes.Add(scene);
+        }
+
+        //yield return new WaitForSecondsRealtime(1);
+        Destroy(go);
+        onCompleted?.Invoke();
+    }
 
     public void LoadMenu(Action callBack)
     {
@@ -34,12 +65,6 @@ public class LoadingManager : Singleton<LoadingManager>
     public IEnumerator LoadSceneCoroutine(string[] scenes, string[] removingscenes, Action onCompleted)
     {
         GameObject go = Instantiate(LoadingScreen);
-        foreach(string scene in scenes)
-        {
-            AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
-            yield return new WaitUntil(() => async.isDone);
-            LoadedScenes.Add(scene);
-        }
         foreach(string removingscene in removingscenes)
         {
             AsyncOperation async = SceneManager.UnloadSceneAsync(removingscene );
@@ -48,7 +73,14 @@ public class LoadingManager : Singleton<LoadingManager>
             yield return new WaitUntil(() => async.isDone);
             //LoadedScenes.Add(scene);
         }
-        yield return new WaitForSecondsRealtime(1);
+        foreach(string scene in scenes)
+        {
+            AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+            yield return new WaitUntil(() => async.isDone);
+            LoadedScenes.Add(scene);
+        }
+        
+        //yield return new WaitForSecondsRealtime(1);
         Destroy(go);
         onCompleted?.Invoke();
     }

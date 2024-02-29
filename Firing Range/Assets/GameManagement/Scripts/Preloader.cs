@@ -23,7 +23,7 @@ public class Preloader : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-        yield return new WaitForSeconds(3);
+        //yield return new WaitForSeconds(3);
         LoadingManager.Instance?.RemoveScene("PreLoader", OnCompleted);
 
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -61,23 +62,37 @@ public class GameManager : Singleton<GameManager>
     GameplaySource gameplaySource;
 
 
+    public void OnHitTarget(int val)
+    {
+        gameplaySource?.OnHitTarget(val);
+    }
+
     public void StartGame()
     {
 
         Time.timeScale = 1;
         IsPaused = false;
-        Debug.Log("Gamescenes Loaded");
+        
         InputManager.IsInputEnabled = true;
         GameUIController.Instance.OnLoaded();
         WeatherManager.Instance.ChangeSkyToDefault();
         gameplaySource = new TimedGamelaySource();
-        gameplaySource.Begin();
-    }
-    public void OnGameOver()
-    {
-        InputManager.IsInputEnabled = false;
+        GameStartOptions gameStartParameters = new GameStartOptions();
+        gameStartParameters.totalTime = 5;
+        gameplaySource.Begin(gameStartParameters);
     }
 
+    public void Retry()
+    {
+        //StartGame();
+        ReloadScene();
+    }
+
+    public void ReloadScene()
+    {
+        LoadingManager.Instance.RetryGame(OnGameSceneLoaded);
+    }
+    
     public void LockUnlockCursor(bool islock)
     {
 
@@ -119,11 +134,16 @@ public class GameManager : Singleton<GameManager>
         LockUnlockCursor(true);
         Time.timeScale = 1;
     }
-    public void GameOver()
+
+    public void OnGameOver(GameOverOption gameOverOption)
     {
         InputManager.IsInputEnabled = false;
-       LockUnlockCursor(false);
+        LockUnlockCursor(false);
+        Time.timeScale =0;
+        GameUIController.Instance.ActivateGameoverhandler();
     }
+
+    
 
     public void OnPreLoaded()
     {
@@ -145,7 +165,7 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
 
-        if (gameplaySource != null) { gameplaySource.Tick(); }
+        if (gameplaySource != null) { gameplaySource.Tick(Time.deltaTime); }
 
     }
   

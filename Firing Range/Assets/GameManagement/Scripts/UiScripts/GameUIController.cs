@@ -1,4 +1,4 @@
-using DG.Tweening.Core.Easing;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +10,7 @@ public class GameUIController : Singleton<GameUIController>
     [SerializeField] PauseHandler pausehandler;
     [SerializeField] GameHandler gameHandler;
     [SerializeField] OptionsHandler optionsHandler;
+    [SerializeField] GameOverHandler gameoverHandler;
 
     public void OnLoaded()
     {
@@ -22,6 +23,7 @@ public class GameUIController : Singleton<GameUIController>
         pausehandler.DeInit();
         gameHandler.DeInit();
         optionsHandler.DeInit();
+        gameoverHandler.DeInit();
     }
 
     public void ActivateHandler(Handler handler)
@@ -46,6 +48,10 @@ public class GameUIController : Singleton<GameUIController>
         ActivateHandler(optionsHandler);
     }
 
+    public void ActivateGameoverhandler()
+    {
+        ActivateHandler(gameoverHandler);
+    }
 
     public void PauseGame()
     {
@@ -63,15 +69,14 @@ public class GameUIController : Singleton<GameUIController>
     {
         GameManager.Instance.LoadMenu();
     }
-
+    public void OnRetry()
+    {
+        GameManager.Instance.Retry();
+    }
 
     public void ActivateGameHandler()
     {
         ActivateHandler(gameHandler);
     }
     
-
-    
-
-
 }

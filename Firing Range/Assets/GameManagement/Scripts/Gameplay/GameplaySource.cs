@@ -1,16 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+
+
+
+public struct GameStartOptions
+{
+    public float totalTime;
+}
+
+public struct GameOverOption
+{
+    public float TimeTaken;
+    public string GameOverCause;
+    public int score;
+
+
+}
 
 public class GameplaySource 
 {
-    
-  
-    public virtual void Begin()
+
+    protected int score = 0;
+    protected bool isGameOver = false;
+    public virtual void Begin(GameStartOptions startParameters)
     {
 
     }
-    public virtual void Tick()
+    public virtual void Tick(float delta)
     {
         if (Input.GetKeyUp(KeyCode.P))
         {
@@ -41,10 +59,16 @@ public class GameplaySource
         }
     }
 
-    public virtual void End()
+    public virtual void End(GameOverOption gameOverParameter)
     {
+
     }
 
-    
-
+    public void OnHitTarget(int val)
+    {
+        score += val;
+    }
 }
+
+
+

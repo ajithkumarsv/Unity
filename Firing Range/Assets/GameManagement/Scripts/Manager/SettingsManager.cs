@@ -13,7 +13,7 @@ public class SettingsManager : Singleton<SettingsManager>
         QualitySettings.SetQualityLevel(qualityIndex);
         settingsData.quality =qualityIndex;
     }
-
+            
     public void SetFullscreen(bool isFullscreen)
     {
         //Screen.fullScreenMode = screenMode;
