@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -27,40 +28,6 @@ public class SaveManager : Singleton<SaveManager>
             formatter.Serialize(stream, data);
         }
     }
-
-    public void SaveLevel(LevelData data)
-    {
-        levelLocation = Path.Combine( Application.dataPath, "Data");
-        string path = Path.Combine(levelLocation, $"level{data.level}.lvl");
-        Debug.Log(path);
-        BinaryFormatter formatter = new BinaryFormatter();
-        using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
-        {
-            formatter.Serialize(stream, data);
-        }
-    }
-
-    public LevelData LoadLevel(int level)
-    {
-        levelLocation = Path.Combine(Application.dataPath, "Data");
-        string temppath = Path.Combine(levelLocation, $"level{level}.lvl");
-        if (File.Exists(temppath))
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream stream = new FileStream(temppath, FileMode.Open))
-            {
-                return formatter.Deserialize(stream) as LevelData;
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Save file not found.");
-            return null;
-        }
-    }
-
-   
-
     public GameData Load()
     {
         if (File.Exists(savePath))
@@ -79,6 +46,42 @@ public class SaveManager : Singleton<SaveManager>
     }
 
 
+    public void SaveLevel(LevelData data)
+    {
+        levelLocation = Path.Combine( Application.dataPath, "Data");
+        string path = Path.Combine(levelLocation, $"level{data.level}.lvl");
+        Debug.Log(path);
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(path, json);
+        //BinaryFormatter formatter = new BinaryFormatter();
+        //using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+        //{
+        //    formatter.Serialize(stream, data);
+        //}
+    }
+
+    public LevelData LoadLevel(int level)
+    {
+        levelLocation = Path.Combine(Application.dataPath, "Data");
+        string path = Path.Combine(levelLocation, $"level{level}.lvl");
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            LevelData levelData = JsonUtility.FromJson<LevelData>(json);
+            return levelData;
+        }
+        
+        else
+        {
+            Debug.LogWarning("Save file not found.");
+            return null;
+        }
+    }
+
+   
+
+    
     public SettingsData LoadSettings( )
     {
         string path = Application.persistentDataPath + "/settings.json";
@@ -102,4 +105,6 @@ public class SaveManager : Singleton<SaveManager>
         string path = Application.persistentDataPath + "/settings.json";
         File.WriteAllText(path, json);
     }
+
+
 }

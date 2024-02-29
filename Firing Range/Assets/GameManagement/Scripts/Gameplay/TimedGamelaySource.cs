@@ -9,15 +9,16 @@ public class TimedGamelaySource : GameplaySource
      float currentTime = 120;
     
     
+    GameUIHandler gameuiHandler;
     public override void Begin(GameStartOptions gameStartParameters)
     {
         base.Begin(gameStartParameters);
 
         isGameOver =false;
-
-
+        gameuiHandler = gameStartParameters.gameUIHandler;
         TotalTime = gameStartParameters.totalTime;
         currentTime = gameStartParameters.totalTime;
+
     }
 
     public override void Tick(float delta)
@@ -28,10 +29,10 @@ public class TimedGamelaySource : GameplaySource
         base.Tick(delta);
 
         currentTime-= delta;
+        gameuiHandler.SetTime(currentTime);
+        //Debug.Log("Time is " + currentTime);
 
-        Debug.Log("Time is " + currentTime);
-
-        if(currentTime <= 0)
+        if (currentTime <= 0)
         {
            OnTimeOver();
         }
@@ -59,7 +60,13 @@ public class TimedGamelaySource : GameplaySource
 
     }
 
-    
+    public override void OnHitTarget(int val)
+    {
+        //base.OnHitTarget(val);
+        score += val;
+        Debug.Log("score is "+score);
+    }
+
 
     GameManager gamePlayManager { get { return GameManager.Instance; } }
 

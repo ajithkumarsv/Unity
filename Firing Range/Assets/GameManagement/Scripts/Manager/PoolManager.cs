@@ -45,7 +45,10 @@ public class PoolManager : Singleton<PoolManager>
     IEnumerator ReturnObjectTimeCoroutine(string tag, GameObject obj, float time)
     {
         yield return new WaitForSeconds(time);
-        ReturnObject(tag, obj);
+        if (obj != null)
+        {
+            ReturnObject(tag, obj);
+        }
     }
 
     public void ReturnObject(string tag ,GameObject gameObject)
@@ -54,6 +57,7 @@ public class PoolManager : Singleton<PoolManager>
         {
             poolDictionary[tag].Enqueue(gameObject);
             gameObject.SetActive(false);
+            gameObject.transform.parent = transform;
         }
     }
 

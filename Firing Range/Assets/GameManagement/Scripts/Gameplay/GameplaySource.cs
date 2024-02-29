@@ -8,6 +8,8 @@ using UnityEngine.SocialPlatforms.Impl;
 public struct GameStartOptions
 {
     public float totalTime;
+    public GameUIHandler gameUIHandler;
+
 }
 
 public struct GameOverOption
@@ -15,7 +17,6 @@ public struct GameOverOption
     public float TimeTaken;
     public string GameOverCause;
     public int score;
-
 
 }
 
@@ -64,10 +65,7 @@ public class GameplaySource
 
     }
 
-    public void OnHitTarget(int val)
-    {
-        score += val;
-    }
+    public virtual void OnHitTarget(int val) { }
 }
 
 

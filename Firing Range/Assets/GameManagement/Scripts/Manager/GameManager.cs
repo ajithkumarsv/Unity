@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -56,30 +57,50 @@ public class GameManager : Singleton<GameManager>
         }
         SettingsManager.Instance.Load();
     }
+
+
     #region gameFlow
-
-
     GameplaySource gameplaySource;
 
 
-    public void OnHitTarget(int val)
+    public GameplaySource GameplaySource { get { return gameplaySource; } }
+    
+    public void InitGame(Action<GameStartOptions> callback)
     {
-        gameplaySource?.OnHitTarget(val);
+        
+        StartCoroutine(InitValues(callback));
+        //StartGame(gameStartParameters);
     }
 
-    public void StartGame()
+    public  IEnumerator InitValues(Action<GameStartOptions> callback)
+    {
+        yield return null;
+        yield return new WaitUntil(() => (LevelSaveLoadData.Instance != null));
+        LevelData leveldata=LevelSaveLoadData.Instance.load();
+        if (leveldata == null)
+        {
+            Debug.LogError("LevelData is NUll");
+            yield return null;
+        }
+        gameplaySource = new TimedGamelaySource();
+        GameStartOptions gameStartOptions = new GameStartOptions();
+
+        gameStartOptions.gameUIHandler = GameUIController.Instance.gameuihandler;
+        gameStartOptions.totalTime = leveldata.LevelTime;
+        
+        callback?.Invoke(gameStartOptions);
+    }
+    public void StartGame(GameStartOptions gameStartOptions)
     {
 
         Time.timeScale = 1;
         IsPaused = false;
-        
+        LockUnlockCursor(true);
         InputManager.IsInputEnabled = true;
         GameUIController.Instance.OnLoaded();
         WeatherManager.Instance.ChangeSkyToDefault();
-        gameplaySource = new TimedGamelaySource();
-        GameStartOptions gameStartParameters = new GameStartOptions();
-        gameStartParameters.totalTime = 5;
-        gameplaySource.Begin(gameStartParameters);
+        
+        gameplaySource.Begin(gameStartOptions);
     }
 
     public void Retry()
@@ -153,7 +174,8 @@ public class GameManager : Singleton<GameManager>
 
     public void OnGameSceneLoaded()
     {
-        StartGame();
+        InitGame(StartGame);
+        //StartGame();
     }
 
     public void OnMenuSceneLoaded()

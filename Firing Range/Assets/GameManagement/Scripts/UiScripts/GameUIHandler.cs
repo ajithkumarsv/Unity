@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class GameHandler : Handler
+public class GameUIHandler : Handler
 {
     GameUIController uiController { get { return GameUIController.Instance; } }
 
     public GameObject sniperscope;
-    
+    [SerializeField] TextMeshProUGUI timetext;
 
     private void Start()
     {
@@ -38,6 +39,10 @@ public class GameHandler : Handler
         uiController.ActivatePauseHandler();
         GameManager.Instance.PauseGame();
 
+    }
+    public void SetTime(float Time)
+    {
+        timetext.text = Time.ToString("00.00");
     }
 
 }

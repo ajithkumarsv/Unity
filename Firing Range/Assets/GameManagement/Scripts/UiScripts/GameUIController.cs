@@ -8,10 +8,11 @@ public class GameUIController : Singleton<GameUIController>
     Handler currentActiveHandler = null;
 
     [SerializeField] PauseHandler pausehandler;
-    [SerializeField] GameHandler gameHandler;
+    [SerializeField] GameUIHandler gameUIHandler;
     [SerializeField] OptionsHandler optionsHandler;
     [SerializeField] GameOverHandler gameoverHandler;
 
+    public GameUIHandler gameuihandler { get { return gameUIHandler; } }
     public void OnLoaded()
     {
         DeactivateAll();
@@ -21,7 +22,7 @@ public class GameUIController : Singleton<GameUIController>
     public void DeactivateAll()
     {
         pausehandler.DeInit();
-        gameHandler.DeInit();
+        gameUIHandler.DeInit();
         optionsHandler.DeInit();
         gameoverHandler.DeInit();
     }
@@ -35,7 +36,7 @@ public class GameUIController : Singleton<GameUIController>
 
     public void CrossHair(bool enable)
     {
-        gameHandler.CrossHair(enable);
+        gameUIHandler.CrossHair(enable);
     }
 
     public void ActivatePauseHandler()
@@ -55,28 +56,33 @@ public class GameUIController : Singleton<GameUIController>
 
     public void PauseGame()
     {
-        GameManager.Instance.PauseGame();
+        gameManager.PauseGame();
         ActivatePauseHandler();
     }
 
     public void Resume()
     {
-       GameManager.Instance.ResumeGame();
+        gameManager.ResumeGame();
         pausehandler.OnResume();
     }
 
     public void OnMenu()
     {
-        GameManager.Instance.LoadMenu();
+        gameManager.LoadMenu();
     }
     public void OnRetry()
     {
-        GameManager.Instance.Retry();
+
+        gameManager.Retry();
     }
 
     public void ActivateGameHandler()
     {
-        ActivateHandler(gameHandler);
+        ActivateHandler(gameUIHandler);
     }
+
     
+    GameManager gameManager { get { return GameManager.Instance; } }
+    
+
 }
