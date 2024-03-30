@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 
-
-public struct GameStartOptions
+namespace GM
+{
+    public struct GameStartOptions
 {
     public float totalTime;
     public GameUIHandler gameUIHandler;
@@ -17,7 +18,6 @@ public struct GameOverOption
     public float TimeTaken;
     public string GameOverCause;
     public int score;
-
 }
 
 public class GameplaySource 
@@ -69,4 +69,4 @@ public class GameplaySource
 }
 
 
-
+}

@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : Singleton<InputManager>
+namespace GM
 {
-    private static bool isInputEnabled;
-    public static bool IsInputEnabled
+    public class InputManager : Singleton<InputManager>
     {
-        get
+        private static bool isInputEnabled;
+        public static bool IsInputEnabled
         {
-            return isInputEnabled;
+            get
+            {
+                return isInputEnabled;
+            }
+            set
+            {
+                isInputEnabled = value;
+            }
+
         }
-        set
-        {
-            isInputEnabled = value;
-        }
-        
     }
 }

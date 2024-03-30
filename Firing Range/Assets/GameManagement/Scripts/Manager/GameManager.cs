@@ -1,198 +1,221 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+namespace GM
 {
-    private static bool isPaused;
-    public static bool IsPaused
+    public class GameManager : Singleton<GameManager>
     {
-        get
+        private static bool isPaused;
+        public static bool IsPaused
         {
-            return isPaused;
-        }
-        set
-        {
-            isPaused = value;
-        }
-
-    }
-
-   
-
-    private GameData gameData;
-
-    
-    public void SaveData()
-    {
-        gameData = new GameData();
-        //gameData.playerScore = 100;
-        //gameData.isGameCompleted = false;
-        gameData.playerName = "Player";
-
-        // Save game data
-        saveManager.Save(gameData);
-    }
-
-
-    public void LoadData()
-    {
-        if (saveManager)
-        {
+            get
+            {
+                return isPaused;
+            }
+            set
+            {
+                isPaused = value;
+            }
 
         }
-        else
+
+
+
+        private GameData gameData;
+
+
+        public void SaveData()
         {
-            Debug.Log("savemanager is null");
+            if(gameData == null)
+            {
+                gameData = new GameData();
+            }
+            
+            //gameData.playerScore = 100;
+            //gameData.isGameCompleted = false;
+            gameData.playerName = "Player";
+
+            // Save game data
+            saveManager.Save(gameData);
         }
-        GameData loadedData = saveManager.Load();
-        if (loadedData != null)
+
+
+        public void LoadData()
         {
-            gameData =loadedData;
-            //Debug.Log("Loaded player score: " + loadedData.playerScore);
-            //Debug.Log("Loaded game completed status: " + loadedData.isGameCompleted);
-            Debug.Log("Loaded player name: " + loadedData.playerName);
+            if (saveManager)
+            {
+
+            }
+            else
+            {
+                Debug.Log("savemanager is null");
+            }
+            GameData loadedData = saveManager.Load();
+            if (loadedData != null)
+            {
+                gameData = loadedData;
+                //Debug.Log("Loaded player score: " + loadedData.playerScore);
+                //Debug.Log("Loaded game completed status: " + loadedData.isGameCompleted);
+                Debug.Log("Loaded player name: " + loadedData.playerName);
+            }
+            else
+            {
+                SaveData();
+            }
+            SettingsManager.Instance.Load();
         }
-        SettingsManager.Instance.Load();
-    }
 
 
-    #region gameFlow
-    GameplaySource gameplaySource;
+        #region gameFlow
+        GameplaySource gameplaySource;
 
 
-    public GameplaySource GameplaySource { get { return gameplaySource; } }
-    
-    public void InitGame(Action<GameStartOptions> callback)
-    {
-        
-        StartCoroutine(InitValues(callback));
-        //StartGame(gameStartParameters);
-    }
+        public GameplaySource GameplaySource { get { return gameplaySource; } }
 
-    public  IEnumerator InitValues(Action<GameStartOptions> callback)
-    {
-        yield return null;
-        yield return new WaitUntil(() => (LevelSaveLoadData.Instance != null));
-        LevelData leveldata=LevelSaveLoadData.Instance.load();
-        if (leveldata == null)
+        public void InitGame(Action<GameStartOptions> callback)
         {
-            Debug.LogError("LevelData is NUll");
+
+            StartCoroutine(InitValues(callback));
+            //StartGame(gameStartParameters);
+        }
+
+        public IEnumerator InitValues(Action<GameStartOptions> callback)
+        {
             yield return null;
+            //yield return new WaitUntil(() => (LevelSaveLoadData.Instance != null));
+            //LevelData leveldata = LevelSaveLoadData.Instance.load();
+            //if (leveldata == null)
+            //{
+            //    Debug.LogError("LevelData is NUll");
+            //    //yield return null;
+            //}
+            gameplaySource = new TimedGamelaySource();
+            GameStartOptions gameStartOptions = new GameStartOptions();
+
+            gameStartOptions.gameUIHandler = GameUIController.Instance.gameuihandler;
+            gameStartOptions.totalTime = 120;
+
+            callback?.Invoke(gameStartOptions);
         }
-        gameplaySource = new TimedGamelaySource();
-        GameStartOptions gameStartOptions = new GameStartOptions();
-
-        gameStartOptions.gameUIHandler = GameUIController.Instance.gameuihandler;
-        gameStartOptions.totalTime = leveldata.LevelTime;
-        
-        callback?.Invoke(gameStartOptions);
-    }
-    public void StartGame(GameStartOptions gameStartOptions)
-    {
-
-        Time.timeScale = 1;
-        IsPaused = false;
-        LockUnlockCursor(true);
-        InputManager.IsInputEnabled = true;
-        GameUIController.Instance.OnLoaded();
-        WeatherManager.Instance.ChangeSkyToDefault();
-        
-        gameplaySource.Begin(gameStartOptions);
-    }
-
-    public void Retry()
-    {
-        //StartGame();
-        ReloadScene();
-    }
-
-    public void ReloadScene()
-    {
-        LoadingManager.Instance.RetryGame(OnGameSceneLoaded);
-    }
-    
-    public void LockUnlockCursor(bool islock)
-    {
-
-        if (islock)
+        public void StartGame(GameStartOptions gameStartOptions)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+
+            Time.timeScale = 1;
+            IsPaused = false;
+            LockUnlockCursor(true);
+            InputManager.IsInputEnabled = true;
+            GameUIController.Instance.OnLoaded();
+            WeatherManager.Instance.ChangeSkyToDefault();
+
+            gameplaySource.Begin(gameStartOptions);
         }
-        else
+
+        public void Retry()
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            //StartGame();
+            ReloadScene();
         }
 
+        public void ReloadScene()
+        {
+            LoadingManager.Instance.RetryGame(OnGameSceneLoaded);
+        }
+
+        public void LockUnlockCursor(bool islock)
+        {
+
+            if (islock)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+
+        }
+
+        public void PlayGame()
+        {
+            LockUnlockCursor(true);
+            loadingManager.LoadGamePlay(OnGameSceneLoaded);
+            
+        
+        }
+
+        public void LoadMenu()
+        {
+            loadingManager.LoadMenu(OnMenuSceneLoaded);
+        }
+
+        public void PauseGame()
+        {
+            IsPaused = true;
+            InputManager.IsInputEnabled = false;
+            LockUnlockCursor(false);
+            Time.timeScale = 0;
+        }
+        public void ResumeGame()
+        {
+            isPaused = false;
+            InputManager.IsInputEnabled = true;
+            LockUnlockCursor(true);
+            Time.timeScale = 1;
+        }
+
+        public void OnGameOver(GameOverOption gameOverOption)
+        {
+            InputManager.IsInputEnabled = false;
+            LockUnlockCursor(false);
+            Time.timeScale = 0;
+           
+            if(gameData.highScore< gameOverOption.score)
+            {
+                gameData.highScore = gameOverOption.score;
+               
+            }
+               
+            SaveData();
+            GameUIController.Instance.ActivateGameoverhandler();
+            GameUIController.Instance.GameOver(gameOverOption,gameData.highScore);
+			
+			ADS.Instance.showAd();
+        }
+
+
+
+        public void OnPreLoaded()
+        {
+            menuController.OnLoaded();
+            LoadData();
+        }
+
+        public void OnGameSceneLoaded()
+        {
+            InitGame(StartGame);
+            //StartGame();
+        }
+
+        public void OnMenuSceneLoaded()
+        {
+            MenuController.Instance.OnLoaded();
+            Debug.Log("MenuScenes Loaded");
+        }
+
+        private void Update()
+        {
+
+            if (gameplaySource != null) { gameplaySource.Tick(Time.deltaTime); }
+
+        }
+
+        #endregion
+        LoadingManager loadingManager { get { return LoadingManager.Instance; } }
+        MenuController menuController { get { return MenuController.Instance; } }
+        SaveManager saveManager { get { return SaveManager.Instance; } }
     }
-
-    public void PlayGame()
-    {
-        LockUnlockCursor(true);
-        loadingManager.LoadGamePlay(OnGameSceneLoaded);
-    }
-
-    public void LoadMenu()
-    {
-        loadingManager.LoadMenu(OnMenuSceneLoaded);
-    }
-
-    public void PauseGame()
-    {
-        IsPaused = true;
-        InputManager.IsInputEnabled = false;
-        LockUnlockCursor(false);
-        Time.timeScale = 0;
-    }
-    public void ResumeGame()
-    {
-        isPaused = false;
-        InputManager.IsInputEnabled = true;
-        LockUnlockCursor(true);
-        Time.timeScale = 1;
-    }
-
-    public void OnGameOver(GameOverOption gameOverOption)
-    {
-        InputManager.IsInputEnabled = false;
-        LockUnlockCursor(false);
-        Time.timeScale =0;
-        GameUIController.Instance.ActivateGameoverhandler();
-    }
-
-    
-
-    public void OnPreLoaded()
-    {
-        menuController.OnLoaded();
-        LoadData();
-    }
-
-    public void OnGameSceneLoaded()
-    {
-        InitGame(StartGame);
-        //StartGame();
-    }
-
-    public void OnMenuSceneLoaded()
-    {
-        MenuController.Instance.OnLoaded();
-        Debug.Log("MenuScenes Loaded");
-    }
-
-    private void Update()
-    {
-
-        if (gameplaySource != null) { gameplaySource.Tick(Time.deltaTime); }
-
-    }
-  
-    #endregion
-    LoadingManager loadingManager { get { return LoadingManager.Instance; } }
-    MenuController menuController { get { return MenuController.Instance; } }
-    SaveManager saveManager { get { return SaveManager.Instance; } }
 }

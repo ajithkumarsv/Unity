@@ -2,56 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuController : Singleton<MenuController>
+namespace GM
 {
-    //Queue<Handler> handler = new Queue<Handler>();
-
-    Handler currentActiveHandler = null;
-
-    [SerializeField] MenuHandler menuhandler;
-    [SerializeField] OptionsHandler optionsHandler;
-    [SerializeField] CreditHandler creditHandler;
-
-
-    private void Awake()
+    public class MenuController : Singleton<MenuController>
     {
-        menuhandler.DeInit();
-        optionsHandler.DeInit();
-        creditHandler.DeInit();
-    }
-    public void OnLoaded()
-    {
-        ActivateMenuHandler();
-    }
+        //Queue<Handler> handler = new Queue<Handler>();
 
-  
-    public void ActivateHandler(Handler handler)
-    {
-        if (currentActiveHandler != null) currentActiveHandler.DeInit();
-        handler.Init();
-        currentActiveHandler = handler;
-    }
+        Handler currentActiveHandler = null;
 
-    public void ActivateMenuHandler()
-    {
-        ActivateHandler(menuhandler);
-    }
+        [SerializeField] MenuHandler menuhandler;
+        [SerializeField] OptionsHandler optionsHandler;
+        [SerializeField] CreditHandler creditHandler;
 
-    public void ActivateOptionsHandler()
-    {
-        ActivateHandler(optionsHandler);
-    }
 
-    public void ActivateCredithandler()
-    {
-        ActivateHandler(creditHandler);
-    }
-    public void PlayGame()
-    {
+        private void Awake()
+        {
+            menuhandler.DeInit();
+            optionsHandler.DeInit();
+            creditHandler.DeInit();
+        }
+        public void OnLoaded()
+        {
+            ActivateMenuHandler();
+        }
 
-        GameManager.Instance.PlayGame();
-        
-    }
 
-   
+        public void ActivateHandler(Handler handler)
+        {
+            if (currentActiveHandler != null) currentActiveHandler.DeInit();
+            handler.Init();
+            currentActiveHandler = handler;
+        }
+
+        public void ActivateMenuHandler()
+        {
+            ActivateHandler(menuhandler);
+        }
+
+        public void ActivateOptionsHandler()
+        {
+            ActivateHandler(optionsHandler);
+        }
+
+        public void ActivateCredithandler()
+        {
+            ActivateHandler(creditHandler);
+        }
+        public void PlayGame()
+        {
+             ADS.Instance.  showAd();
+            GameManager.Instance.PlayGame();
+
+        }
+
+
+    }
 }

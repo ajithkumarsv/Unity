@@ -3,7 +3,32 @@ guid: 027dc298238d3b346b10bb41229f71b2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grass_A
+    second: {fileID: 2100000, guid: 37bc96b4f05bdc4449684648c633e1ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grass_B
+    second: {fileID: 2100000, guid: 76992e02c932c6d4fa5fddbd53ff0a92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grass_C
+    second: {fileID: 2100000, guid: 64332bdbda69e6247847b711379a3875, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WheatGrass_Low
+    second: {fileID: 2100000, guid: 095e1b9dacd9bf64588542260cd69c5f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wheatgrass_Mat
+    second: {fileID: 2100000, guid: 74d9d4ecd77ce8c4da34b104fe88c4d5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

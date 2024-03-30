@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreditHandler : Handler
+namespace GM
 {
-    public override void Init()
+    public class CreditHandler : Handler
     {
-        base.Init();
-    }
-    public override void DeInit()
-    {
-        base.DeInit();
-    }
+        public override void Init()
+        {
+            base.Init();
+        }
+        public override void DeInit()
+        {
+            base.DeInit();
+        }
 
-    public void CloseButton()
-    {
-        MenuController.Instance.ActivateMenuHandler();
+        public void CloseButton()
+        {
+            MenuController.Instance.ActivateMenuHandler();
+        }
     }
 }

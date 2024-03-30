@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleManager : Singleton<ParticleManager>
+namespace GM
 {
-    
+    public class ParticleManager : Singleton<ParticleManager>
+    {
+
+    }
 }

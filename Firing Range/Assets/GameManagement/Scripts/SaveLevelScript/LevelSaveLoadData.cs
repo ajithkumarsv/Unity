@@ -3,7 +3,9 @@ using UnityEditor;
 using System.Collections.Generic;
 
 
-public class LevelSaveLoadData : Singleton<LevelSaveLoadData>
+namespace GM
+{
+    public class LevelSaveLoadData : Singleton<LevelSaveLoadData>
 {
 
    //[SerializeField] string CurrentLevel;
@@ -14,6 +16,8 @@ public class LevelSaveLoadData : Singleton<LevelSaveLoadData>
 
     [SerializeField]
     LevelData LevelData;
+
+        
    public void  save()
     {
 
@@ -58,4 +62,5 @@ public class LevelSaveLoadData : Singleton<LevelSaveLoadData>
         }
     }
 
+}
 }

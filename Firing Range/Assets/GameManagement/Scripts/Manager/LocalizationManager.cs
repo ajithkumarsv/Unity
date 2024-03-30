@@ -2,86 +2,89 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LocalizationManager : Singleton<LocalizationManager>
+namespace GM
 {
-   
-    public event Action OnLanguageChange;
-
-    private Dictionary<string, Dictionary<string, string>> localizedText;
-    private string currentLanguage = "en"; // Default language
-
-    private void Awake()
+    public class LocalizationManager : Singleton<LocalizationManager>
     {
-       
-        LoadLocalizedText();
-    }
 
-    private void LoadLocalizedText()
-    {
-        localizedText = new Dictionary<string, Dictionary<string, string>>();
+        public event Action OnLanguageChange;
 
-        // Load all language files (e.g., en.json, fr.json, etc.)
-        // You can replace this with your own method of loading localization files
-        TextAsset[] localizationFiles = Resources.LoadAll<TextAsset>("Localization");
-        foreach (TextAsset file in localizationFiles)
+        private Dictionary<string, Dictionary<string, string>> localizedText;
+        private string currentLanguage = "en"; // Default language
+
+        private void Awake()
         {
-            Dictionary<string, string> language = new Dictionary<string, string>();
-            LocalizationData data = JsonUtility.FromJson<LocalizationData>(file.text);
 
-            foreach (LocalizationItem item in data.items)
+            LoadLocalizedText();
+        }
+
+        private void LoadLocalizedText()
+        {
+            localizedText = new Dictionary<string, Dictionary<string, string>>();
+
+            // Load all language files (e.g., en.json, fr.json, etc.)
+            // You can replace this with your own method of loading localization files
+            TextAsset[] localizationFiles = Resources.LoadAll<TextAsset>("Localization");
+            foreach (TextAsset file in localizationFiles)
             {
-                language[item.key] = item.value;
+                Dictionary<string, string> language = new Dictionary<string, string>();
+                LocalizationData data = JsonUtility.FromJson<LocalizationData>(file.text);
+
+                foreach (LocalizationItem item in data.items)
+                {
+                    language[item.key] = item.value;
+                }
+
+                localizedText[data.language] = language;
             }
-
-            localizedText[data.language] = language;
         }
-    }
 
-    public void SetLanguage(string languageCode)
-    {
-        if (localizedText.ContainsKey(languageCode))
+        public void SetLanguage(string languageCode)
         {
-            currentLanguage = languageCode;
-            OnLanguageChange?.Invoke();
-        }
-        else
-        {
-            Debug.LogWarning("Language " + languageCode + " not found.");
-        }
-    }
-
-    public string GetLocalizedValue(string key)
-    {
-        if (localizedText.ContainsKey(currentLanguage))
-        {
-            if (localizedText[currentLanguage].ContainsKey(key))
+            if (localizedText.ContainsKey(languageCode))
             {
-                return localizedText[currentLanguage][key];
+                currentLanguage = languageCode;
+                OnLanguageChange?.Invoke();
             }
             else
             {
-                Debug.LogWarning("Key " + key + " not found in language " + currentLanguage);
+                Debug.LogWarning("Language " + languageCode + " not found.");
             }
         }
-        else
+
+        public string GetLocalizedValue(string key)
         {
-            Debug.LogWarning("Language " + currentLanguage + " not found.");
+            if (localizedText.ContainsKey(currentLanguage))
+            {
+                if (localizedText[currentLanguage].ContainsKey(key))
+                {
+                    return localizedText[currentLanguage][key];
+                }
+                else
+                {
+                    Debug.LogWarning("Key " + key + " not found in language " + currentLanguage);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Language " + currentLanguage + " not found.");
+            }
+
+            return "";
         }
-
-        return "";
     }
-}
 
-[Serializable]
-public class LocalizationData
-{
-    public string language;
-    public LocalizationItem[] items;
-}
+    [Serializable]
+    public class LocalizationData
+    {
+        public string language;
+        public LocalizationItem[] items;
+    }
 
-[Serializable]
-public class LocalizationItem
-{
-    public string key;
-    public string value;
+    [Serializable]
+    public class LocalizationItem
+    {
+        public string key;
+        public string value;
+    }
 }

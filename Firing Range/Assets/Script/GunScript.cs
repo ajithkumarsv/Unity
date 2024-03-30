@@ -1,20 +1,22 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.EventSystems;
+using GM;
 public class GunScript : MonoBehaviour
 {
-    public float fireRate = 0.5f;       // Rate of fire in bullets per second
-    public float reloadTime = 1f;       // Time it takes to reload in seconds
-    public int magazineSize = 10;        // Maximum bullets in a magazine
-    public Transform muzzle;            // Point where bullets are spawned
-    public GameObject bulletPrefab;     // Prefab of the bullet object
-    public Animator animator;           // Animator component for animations
-    public Transform aimTransform;      // Transform for aiming position
+    public float fireRate = 0.5f;       
+    public float reloadTime = 1f;      
+    public int magazineSize = 10;       
+    public Transform muzzle;           
+        
+    public Animator animator;           
+    public Transform aimTransform;      
     [SerializeField]
-    private int currentAmmo;            // Current bullets in the magazine
-    private bool isReloading;           // Flag for reloading
-    private bool isAiming;              // Flag for aiming
-    private float nextFireTime;         // Time of the next allowed shot
+    private int currentAmmo;            
+    private bool isReloading;           
+    private bool isAiming;              
+    private float nextFireTime;        
 
 
 
@@ -37,6 +39,7 @@ public class GunScript : MonoBehaviour
     public float maxSwayAmount = 2f;
     public float smoothAmount = 6f;
 
+    [SerializeField]
     private Quaternion initialRotation;
 
     [SerializeField] float min_zoom, max_zoom;
@@ -73,19 +76,9 @@ public class GunScript : MonoBehaviour
 
     private void Update()
     {
-        //if (!InputManager.IsInputEnabled) return;
+        if (!InputManager.IsInputEnabled) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         MoveGun();
-        if (isReloading)
-            return;
-
-        
-        if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime && currentAmmo>0)
-        {
-            nextFireTime = Time.time + 1f / fireRate;
-            
-            Shoot();
-        }
-
         if (Input.GetMouseButtonDown(1))
         {
             Aiming();
@@ -99,11 +92,24 @@ public class GunScript : MonoBehaviour
             //cam.DOFieldOfView(def_zoom, 0.5f);
 
         }
+        if (isReloading)
+            return;
+
+        
+        if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime && currentAmmo>0)
+        {
+            nextFireTime = Time.time + 1f / fireRate;
+            
+            Shoot();
+        }
+
+        
 
     }
 
     private void Aiming()
     {
+        AudioManager.Instance.PlayTake();
         isAiming = true;
         //transform.GetChild(0).localPosition = aimpPosition;
         transform.GetChild(0).DOLocalMove(aimpPosition, 0.5f).SetEase(aimEase);
@@ -115,25 +121,42 @@ public class GunScript : MonoBehaviour
 
     public void MoveGun()
     {
+        initialRotation = Clamp(initialRotation);
         Vector3 angles= initialRotation.eulerAngles;
-        Vector2 v = input.Movement.Move.ReadValue<Vector2>();
+        Vector2 v = input.Movement.Move.ReadValue<Vector2>().normalized;
         angles.x += -1*v.y * mousespeed *Time.deltaTime;
         angles.y += v.x * mousespeed * Time.deltaTime;
         initialRotation.eulerAngles = angles;
+        
         float swayX = Mathf.PerlinNoise(Time.time * smoothAmount, 0) * 2 - 1;
         float swayY = Mathf.PerlinNoise(0, Time.time * smoothAmount) * 2 - 1;
         swayX *= maxSwayAmount;
         swayY *= maxSwayAmount;
-
-
+        
         Quaternion finalRotation = Quaternion.Euler(0, swayX, swayY);
+        //finalRotation=Clamp(finalRotation);
         transform.localRotation = Quaternion.Lerp(transform.localRotation, finalRotation * initialRotation, Time.deltaTime * smoothAmount);
-        Vector2 scroll = input.Movement.zoom.ReadValue<Vector2>().normalized;
-        if (isAiming)
-        {
-            //cam.fieldOfView += scroll.y;
-            //cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, min_zoom, max_zoom);
-        }
+        //finalRotation = initialRotation;
+        //Vector2 scroll = input.Movement.zoom.ReadValue<Vector2>().normalized;
+
+        //if (isAiming)
+
+        //{
+
+        //cam.fieldOfView += scroll.y;
+
+        //cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, min_zoom, max_zoom);
+
+        //}
+
+    }
+
+    private Quaternion Clamp(Quaternion rot)
+    {
+        Vector3 an = rot.eulerAngles;
+        rot = Quaternion.Euler( new Vector3(an.x, Mathf.Clamp(an.y, 45, 135), an.z));
+       
+        return rot;
     }
 
     private void Shoot()
@@ -147,7 +170,8 @@ public class GunScript : MonoBehaviour
     //Animator trigger
     public void fireTrigger()
     {
-        
+
+        AudioManager.Instance.PlayFire();
         Ray ray = ScopeCam.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
 
         if (Physics.Raycast(ScopeCam.transform.position,ScopeCam.transform.forward, out RaycastHit hit, 1000, hitlayer))
@@ -156,19 +180,37 @@ public class GunScript : MonoBehaviour
             if (hit.collider.tag == "target")
             {
                 hit.collider.GetComponent<Target>().OnHit(hit.point);
-                Instantiate(decal,hit.point,Quaternion.identity);
-
+                Quaternion rotation = Quaternion.LookRotation(hit.normal, Vector3.up);
+                GameObject obj=PoolManager.Instance.SpawnFromPool("hitdecal", hit.point, rotation);
+                obj.transform.parent=hit.transform;
+                PoolManager.Instance.ReturnObjectTime("hitdecal", obj, 30);
             }
         }
         currentAmmo--;
         if (currentAmmo <= 0)
         {
-            StartCoroutine(Reload());
+            Reload1();
             return;
         }
         GetComponent<CameraShake>().Recoil();
     }
 
+    private void Reload1()
+    {
+        //StopAim();
+        isReloading = true;
+        
+        animator.SetTrigger("Reload");
+    }
+
+    public void OnRealoadEvent()
+    {
+        
+        isReloading = false;
+        animator.ResetTrigger("Reload");
+        currentAmmo = magazineSize;
+        
+    }
     private IEnumerator Reload()
     {
         isReloading = true;
@@ -176,7 +218,7 @@ public class GunScript : MonoBehaviour
 
         yield return new WaitForSeconds(reloadTime);
 
-        animator.ResetTrigger("Reload");
+        //animator.ResetTrigger("Reload");
         currentAmmo = magazineSize;
         isReloading = false;
     }
@@ -191,6 +233,7 @@ public class GunScript : MonoBehaviour
     //}
     public void StopAim()
     {
+        AudioManager.Instance. PlayTake();
         isAiming = false;
         cam.DOFieldOfView(def_zoom, 0.5f).SetEase(aimEase);
         transform.GetChild(0).DOLocalMove(Vector3.zero, 0.5f).SetEase(aimEase);

@@ -4,127 +4,130 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadingManager : Singleton<LoadingManager>
+namespace GM
 {
-    [SerializeField]
-    List<string> LoadedScenes;
-    [SerializeField]
-    GameObject LoadingScreen;
-   
+    public class LoadingManager : Singleton<LoadingManager>
+    {
+        [SerializeField]
+        List<string> LoadedScenes;
+        [SerializeField]
+        GameObject LoadingScreen;
 
-    public void LoadGamePlay(Action callback)
-    {
-        string[] loadingscenes = {  "GameUI" , "GameScene" };
-        string[] removingscenes = {"MenuUI" };
-        LoadScenes(loadingscenes, removingscenes, callback);
 
-    }
-    public void RetryGame(Action callback)
-    {
-        string[] reloadingscenes = { "GameScene" };
-        ReloadScenes(reloadingscenes, callback);
-    }
-    public void ReloadScenes(string[] scenes, Action onCompleted)
-    {
-        StartCoroutine(ReloadSceneCoroutine(scenes, onCompleted));
-    }
-    public IEnumerator ReloadSceneCoroutine(string[] scenes, Action onCompleted)
-    {
-        GameObject go = Instantiate(LoadingScreen);
-        foreach (string removingscene in scenes)
+        public void LoadGamePlay(Action callback)
         {
-            AsyncOperation async = SceneManager.UnloadSceneAsync(removingscene);
-            yield return new WaitUntil(() => async.isDone);
-            async = Resources.UnloadUnusedAssets();
-            yield return new WaitUntil(() => async.isDone);
-            //LoadedScenes.Add(scene);
+            string[] loadingscenes = { "GameUI", "GameScene" };
+            string[] removingscenes = { "MenuUI" };
+            LoadScenes(loadingscenes, removingscenes, callback);
+
         }
-        foreach (string scene in scenes)
+        public void RetryGame(Action callback)
+        {
+            string[] reloadingscenes = { "GameScene" };
+            ReloadScenes(reloadingscenes, callback);
+        }
+        public void ReloadScenes(string[] scenes, Action onCompleted)
+        {
+            StartCoroutine(ReloadSceneCoroutine(scenes, onCompleted));
+        }
+        public IEnumerator ReloadSceneCoroutine(string[] scenes, Action onCompleted)
+        {
+            GameObject go = Instantiate(LoadingScreen);
+            foreach (string removingscene in scenes)
+            {
+                AsyncOperation async = SceneManager.UnloadSceneAsync(removingscene);
+                yield return new WaitUntil(() => async.isDone);
+                async = Resources.UnloadUnusedAssets();
+                yield return new WaitUntil(() => async.isDone);
+                //LoadedScenes.Add(scene);
+            }
+            foreach (string scene in scenes)
+            {
+                AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+                yield return new WaitUntil(() => async.isDone);
+                LoadedScenes.Add(scene);
+            }
+
+            //yield return new WaitForSecondsRealtime(1);
+            Destroy(go);
+            onCompleted?.Invoke();
+        }
+
+        public void LoadMenu(Action callBack)
+        {
+            string[] removingscenes = { "GameScene", "GameUI" };
+            string[] loadingscenes = { "MenuUI" };
+            LoadScenes(loadingscenes, removingscenes, callBack);
+        }
+
+        public void LoadScenes(string[] scenes, string[] removingscene, Action onCompleted)
+        {
+            StartCoroutine(LoadSceneCoroutine(scenes, removingscene, onCompleted));
+        }
+        public IEnumerator LoadSceneCoroutine(string[] scenes, string[] removingscenes, Action onCompleted)
+        {
+            GameObject go = Instantiate(LoadingScreen);
+            foreach (string removingscene in removingscenes)
+            {
+                AsyncOperation async = SceneManager.UnloadSceneAsync(removingscene);
+                yield return new WaitUntil(() => async.isDone);
+                async = Resources.UnloadUnusedAssets();
+                yield return new WaitUntil(() => async.isDone);
+                //LoadedScenes.Add(scene);
+            }
+            foreach (string scene in scenes)
+            {
+                AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+                yield return new WaitUntil(() => async.isDone);
+                LoadedScenes.Add(scene);
+            }
+
+            //yield return new WaitForSecondsRealtime(1);
+            Destroy(go);
+            onCompleted?.Invoke();
+        }
+        public void LoadScene(string scene, Action onCompleted)
+        {
+            StartCoroutine(LoadSceneCoroutine(scene, onCompleted));
+        }
+
+        public IEnumerator LoadSceneCoroutine(string scene, Action onCompleted)
         {
             AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
             yield return new WaitUntil(() => async.isDone);
             LoadedScenes.Add(scene);
+            onCompleted?.Invoke();
         }
 
-        //yield return new WaitForSecondsRealtime(1);
-        Destroy(go);
-        onCompleted?.Invoke();
-    }
-
-    public void LoadMenu(Action callBack)
-    {
-        string[] removingscenes = { "GameScene", "GameUI" };
-        string[] loadingscenes = { "MenuUI" };
-        LoadScenes(loadingscenes, removingscenes, callBack);
-    }
-
-    public void LoadScenes(string[] scenes,string[] removingscene ,Action onCompleted)
-    {
-        StartCoroutine(LoadSceneCoroutine(scenes,removingscene, onCompleted));
-    }
-    public IEnumerator LoadSceneCoroutine(string[] scenes, string[] removingscenes, Action onCompleted)
-    {
-        GameObject go = Instantiate(LoadingScreen);
-        foreach(string removingscene in removingscenes)
+        public void RemoveScene(string scene, Action onCompleted)
         {
-            AsyncOperation async = SceneManager.UnloadSceneAsync(removingscene );
-            yield return new WaitUntil(() => async.isDone);
-            async = Resources.UnloadUnusedAssets();
-            yield return new WaitUntil(() => async.isDone);
-            //LoadedScenes.Add(scene);
+            StartCoroutine(RemoveSceneCoroutine(scene, onCompleted));
         }
-        foreach(string scene in scenes)
+
+        public IEnumerator RemoveSceneCoroutine(string scene, Action onCompleted)
         {
-            AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
-            yield return new WaitUntil(() => async.isDone);
-            LoadedScenes.Add(scene);
-        }
-        
-        //yield return new WaitForSecondsRealtime(1);
-        Destroy(go);
-        onCompleted?.Invoke();
-    }
-    public void LoadScene(string scene, Action onCompleted)
-    {
-        StartCoroutine(LoadSceneCoroutine(scene,onCompleted));
-    }
-
-    public IEnumerator LoadSceneCoroutine(string scene, Action onCompleted)
-    {
-        AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
-        yield return new WaitUntil(() => async .isDone);
-        LoadedScenes.Add(scene);
-        onCompleted?.Invoke();
-    }
-
-    public void RemoveScene(string scene,Action onCompleted)
-    {
-        StartCoroutine(RemoveSceneCoroutine(scene, onCompleted));
-    }
-
-    public IEnumerator RemoveSceneCoroutine(string scene,Action onCompleted)
-    {
             AsyncOperation async = SceneManager.UnloadSceneAsync(scene);
 
             yield return new WaitUntil(() => async.isDone);
-            async =Resources.UnloadUnusedAssets();
+            async = Resources.UnloadUnusedAssets();
             yield return new WaitUntil(() => async.isDone);
             onCompleted?.Invoke();
-    }
-    public void RemoveScenes(string[] scenes, Action onCompleted)
-    {
-        StartCoroutine(RemoveSceneCoroutine(scenes, onCompleted));
-    }
-    public IEnumerator RemoveSceneCoroutine(string[] scenes, Action onCompleted)
-    {
-        foreach (string scene in scenes)
-        {
-            AsyncOperation async = SceneManager.UnloadSceneAsync(scene);
-            yield return new WaitUntil(() => async.isDone);
-            async = Resources.UnloadUnusedAssets();
-            yield return new WaitUntil(() => async.isDone);
-            LoadedScenes.Add(scene);
         }
-        onCompleted?.Invoke();
+        public void RemoveScenes(string[] scenes, Action onCompleted)
+        {
+            StartCoroutine(RemoveSceneCoroutine(scenes, onCompleted));
+        }
+        public IEnumerator RemoveSceneCoroutine(string[] scenes, Action onCompleted)
+        {
+            foreach (string scene in scenes)
+            {
+                AsyncOperation async = SceneManager.UnloadSceneAsync(scene);
+                yield return new WaitUntil(() => async.isDone);
+                async = Resources.UnloadUnusedAssets();
+                yield return new WaitUntil(() => async.isDone);
+                LoadedScenes.Add(scene);
+            }
+            onCompleted?.Invoke();
+        }
     }
 }

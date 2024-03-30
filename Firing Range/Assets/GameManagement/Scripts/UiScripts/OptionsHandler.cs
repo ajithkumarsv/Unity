@@ -5,69 +5,72 @@ using UnityEngine.UI;
 using TMPro;
 using JetBrains.Annotations;
 
-public class OptionsHandler : Handler
+namespace GM
 {
-    [SerializeField] Slider volumeSilder;
-    [SerializeField] Toggle fullscreenToggle;
-    [SerializeField] TMP_Dropdown dropdownquality;
-
-
-
-
-    public override void Init()
+    public class OptionsHandler : Handler
     {
-        base.Init();
-        SettingsData settingsData = settingsManager.GetSettingsDaa();
-        if (settingsData != null )
+        [SerializeField] Slider volumeSilder;
+        [SerializeField] Toggle fullscreenToggle;
+        [SerializeField] TMP_Dropdown dropdownquality;
+
+
+
+
+        public override void Init()
         {
-            SetQuality(settingsData.quality);
-            SetVolume(settingsData.volume);
-            SetFullScreen(settingsData.isFullScreen);
+            base.Init();
+            SettingsData settingsData = settingsManager.GetSettingsDaa();
+            if (settingsData != null)
+            {
+                SetQuality(settingsData.quality);
+                SetVolume(settingsData.volume);
+                SetFullScreen(settingsData.isFullScreen);
+
+            }
 
         }
-       
-    }
-    public override void DeInit()
-    {
-        base.DeInit();
-    }
+        public override void DeInit()
+        {
+            base.DeInit();
+        }
 
-    public void CloseButtonMenu()
-    {
-        MenuController.Instance.ActivateMenuHandler();
-    }
+        public void CloseButtonMenu()
+        {
+            MenuController.Instance.ActivateMenuHandler();
+        }
 
-    public void CloseButtonGame()
-    {
-        GameUIController.Instance.ActivatePauseHandler();
-    
-    }
+        public void CloseButtonGame()
+        {
+            GameUIController.Instance.ActivatePauseHandler();
 
-    public void SetQuality(int quality)
-    {
-        settingsManager.SetQualityLevel(quality);
-        dropdownquality.value = quality;
-        Debug.Log("quality " + quality);
-    }
-    public void SetVolume(float volume)
-    {
-        settingsManager.SetMasterVolume(volume);
-        volumeSilder.value = volume;
-        Debug.Log("volume " + volume);
-    }
-    public void SetFullScreen(bool val)
-    {
-        settingsManager.SetFullscreen(val);
-        fullscreenToggle.isOn = val;
-        Debug.Log("Value " +val);
-    }
+        }
 
-    public void Save()
-    {
-        settingsManager.Save();
-    }
+        public void SetQuality(int quality)
+        {
+            settingsManager.SetQualityLevel(quality);
+            dropdownquality.value = quality;
+            Debug.Log("quality " + quality);
+        }
+        public void SetVolume(float volume)
+        {
+            settingsManager.SetMasterVolume(volume);
+            volumeSilder.value = volume;
+            Debug.Log("volume " + volume);
+        }
+        public void SetFullScreen(bool val)
+        {
+            settingsManager.SetFullscreen(val);
+            fullscreenToggle.isOn = val;
+            Debug.Log("Value " + val);
+        }
+
+        public void Save()
+        {
+            settingsManager.Save();
+        }
 
 
-    SettingsManager settingsManager { get { return SettingsManager.Instance; } }
+        SettingsManager settingsManager { get { return SettingsManager.Instance; } }
 
+    }
 }
